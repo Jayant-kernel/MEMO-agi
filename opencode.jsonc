@@ -1,0 +1,115 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md"],
+  "default_agent": "frontier-orchestrator",
+  "small_model": "ollama/qwen3.5:9b",
+  "permission": {
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "task": "ask",
+    "edit": "ask",
+    "bash": "ask",
+    "external_directory": "ask"
+  },
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      },
+      "models": {
+        "qwen3.5:9b": {
+          "name": "Qwen3.5 9B Local",
+          "attachment": true,
+          "reasoning": false,
+          "tool_call": true,
+          "limit": {
+            "context": 16384,
+            "output": 4096
+          }
+        }
+      }
+    }
+  },
+  "agent": {
+    "build": { "disable": true },
+    "plan": { "disable": true },
+    "general": { "disable": true },
+    "scout": { "disable": true },
+    "explore": {
+      "model": "ollama/qwen3.5:9b",
+      "permission": {
+        "*": "deny",
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow"
+      }
+    }
+  },
+  "plugin": ["@cortexkit/opencode-magic-context@0.41.4"],
+  "compaction": {
+    "auto": false,
+    "prune": false
+  },
+  "mcp": {
+    "paper-search": {
+      "type": "local",
+      "command": ["C:/Users/jayan/.local/bin/paper-search-mcp.exe"],
+      "enabled": true,
+      "timeout": 120000
+    },
+    "yahoo-finance": {
+      "type": "local",
+      "command": ["C:/Users/jayan/.local/bin/yfmcp.exe"],
+      "enabled": true,
+      "timeout": 60000
+    },
+    "ddgs": {
+      "type": "local",
+      "command": ["C:/Users/jayan/.local/bin/ddgs.exe", "mcp"],
+      "enabled": true,
+      "timeout": 60000
+    },
+    "scrapling": {
+      "type": "local",
+      "command": ["C:/Users/jayan/.local/bin/scrapling-mcp.exe"],
+      "enabled": true,
+      "timeout": 120000
+    },
+    "exa": {
+      "type": "local",
+      "command": ["npx", "-y", "exa-mcp-server"],
+      "enabled": false
+    },
+    "firecrawl": {
+      "type": "local",
+      "command": ["npx", "-y", "firecrawl-mcp"],
+      "enabled": false
+    },
+    "fred": {
+      "type": "local",
+      "command": ["npx", "-y", "fred-mcp-server@1.2.0"],
+      "enabled": false,
+      "timeout": 60000
+    },
+    "x": {
+      "type": "local",
+      "command": ["npx", "-y", "@xdevplatform/xurl", "mcp", "https://api.x.com/mcp"],
+      "enabled": false
+    },
+    "crawl4ai": {
+      "type": "remote",
+      "url": "http://127.0.0.1:11235/mcp/sse",
+      "enabled": false,
+      "oauth": false,
+      "timeout": 120000,
+      "headers": {
+        "Authorization": "Bearer PASTE_YOUR_CRAWL4AI_LOCAL_TOKEN_HERE"
+      }
+    }
+  }
+}

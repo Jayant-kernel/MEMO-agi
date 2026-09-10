@@ -1,0 +1,10 @@
+{
+  "id": "phase2-foundation",
+  "category": "infrastructure",
+  "prompt": "Create a durable task manifest and trace ledger for a standard-risk task.",
+  "expected": [
+    "A manifest has explicit acceptance and verification criteria.",
+    "A run records route, checks, failures, and token estimates.",
+    "The final run status cannot be changed twice."
+  ]
+}

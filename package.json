@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "node --test test/**/*.test.mjs",
+    "eval:memo": "node tools/run-memo-evals.mjs"
+  },
+  "dependencies": {
+    "@cortexkit/opencode-magic-context": "0.41.4",
+    "@opencode-ai/plugin": "1.18.30"
+  }
+}
