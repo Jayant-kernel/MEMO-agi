@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "app": "node app/server.mjs",
     "test": "node --test test/**/*.test.mjs",
     "eval:memo": "node tools/run-memo-evals.mjs"
   },

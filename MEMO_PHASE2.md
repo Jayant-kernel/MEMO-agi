@@ -33,8 +33,10 @@ shape and records its result locally. This is the initial harness, not a quality
 claim about any model. Expand it with real failures and held-out cases before
 using it to promote routing or prompt changes.
 
-## Limitations
+## Current Application Slice
 
-This Hello root is not a Git repository. The existing commit-and-tag promotion
-requirement therefore cannot be enforced until a repository is initialized with
-explicit user approval.
+The dependency-free local Memo workspace persists project, chat, and message
+records in `.memo/workspace.json`. Run it with `npm run app`, then open the local
+address it prints. It does not yet run OpenCode sessions, stream model output,
+or implement memory retrieval; those capabilities remain approval-gated future
+delivery slices.

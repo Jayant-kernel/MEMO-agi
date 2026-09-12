@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Memo Workspace</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="sidebar" aria-label="Projects and chats">
+        <div class="brand"><span class="brand-mark">M</span><span>Memo</span></div>
+        <button class="new-button" id="new-project" type="button">New project</button>
+        <div class="project-list" id="project-list"></div>
+        <p class="sidebar-note">Local workspace<br>Execution stays approval-gated.</p>
+      </aside>
+      <section class="workspace">
+        <header class="topbar"><div><p class="eyebrow" id="project-path">LOCAL WORKSPACE</p><h1 id="chat-title">Choose a project</h1></div><button class="new-chat" id="new-chat" type="button" disabled>New chat</button></header>
+        <section class="conversation" id="conversation" aria-live="polite"><div class="empty"><span>MEMO / 01</span><h2>Plan, build, verify.</h2><p>Create a project to begin a persistent local conversation. OpenCode execution will be connected in a later delivery slice.</p></div></section>
+        <form class="composer" id="composer"><textarea id="message" rows="1" maxlength="8000" placeholder="Message Memo..." disabled></textarea><button id="send" type="submit" disabled>Send</button></form>
+      </section>
+    </main>
+    <dialog id="project-dialog"><form method="dialog" id="project-form"><h2>New project</h2><label>Name<input name="name" required maxlength="120" placeholder="Memo app"></label><label>Path relative to Memo root<input name="path" required value="." maxlength="1000"></label><p class="form-error" id="project-error"></p><div class="dialog-actions"><button value="cancel" type="button" id="cancel-project">Cancel</button><button value="create" type="submit">Create project</button></div></form></dialog>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
