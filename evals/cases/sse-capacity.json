@@ -1,0 +1,6 @@
+{
+  "id": "sse-capacity",
+  "category": "sse",
+  "prompt": "Open event streams until chat capacity is exhausted.",
+  "expected": ["A capacity-exceeding subscription is rejected with 429.", "Existing event listeners remain active."]
+}

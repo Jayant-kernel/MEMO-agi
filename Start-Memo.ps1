@@ -26,7 +26,7 @@ $env:OPENCODE_CONFIG_DIR = Join-Path $memoRoot ".opencode"
 
 Push-Location -LiteralPath $projectPath
 try {
-  & npx --yes opencode-ai @OpenCodeArgs
+  & npx --no-install opencode-ai @OpenCodeArgs
 } finally {
   Pop-Location
 }

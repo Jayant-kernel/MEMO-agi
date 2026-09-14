@@ -1,0 +1,6 @@
+{
+  "id": "unsupported-remembered-permission",
+  "category": "permission",
+  "prompt": "Reply to a pending permission with a remembered rejection.",
+  "expected": ["The remembered permission response is rejected.", "Only once and reject responses are accepted."]
+}

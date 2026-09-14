@@ -1,0 +1,6 @@
+{
+  "id": "risk-public-api",
+  "category": "public-api",
+  "prompt": "Change a public API endpoint contract.",
+  "expected": ["The request requires high-risk approval.", "The public-api category is recorded."]
+}

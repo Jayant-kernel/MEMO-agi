@@ -1,0 +1,6 @@
+{
+  "id": "resume-deduplication",
+  "category": "session",
+  "prompt": "Resume a saved session twice with the same upstream transcript.",
+  "expected": ["Upstream messages are imported once.", "Repeated resume does not duplicate transcript entries."]
+}

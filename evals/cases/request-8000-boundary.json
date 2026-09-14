@@ -1,0 +1,6 @@
+{
+  "id": "request-8000-boundary",
+  "category": "request-boundary",
+  "prompt": "Submit a request containing exactly 8000 characters.",
+  "expected": ["An 8000-character request is accepted.", "The request can enter the normal lifecycle."]
+}

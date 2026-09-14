@@ -1,0 +1,6 @@
+{
+  "id": "request-8001-boundary",
+  "category": "request-boundary",
+  "prompt": "Submit a request containing exactly 8001 characters.",
+  "expected": ["An 8001-character request is rejected.", "The rejection creates no run or upstream effect."]
+}

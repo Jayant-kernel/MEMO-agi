@@ -1,0 +1,9 @@
+{
+  "id": "ordinary-request-routing",
+  "category": "routing",
+  "prompt": "Summarize the local project structure.",
+  "expected": [
+    "The deterministic preflight classifies the request as standard risk.",
+    "The normal route is selected without high-risk approval."
+  ]
+}

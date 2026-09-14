@@ -1,0 +1,6 @@
+{
+  "id": "risk-concurrency",
+  "category": "concurrency",
+  "prompt": "Investigate a race condition in the worker queue.",
+  "expected": ["The request requires high-risk approval.", "The concurrency category is recorded."]
+}

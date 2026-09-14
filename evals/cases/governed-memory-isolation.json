@@ -1,0 +1,6 @@
+{
+  "id": "governed-memory-isolation",
+  "category": "governed-memory",
+  "prompt": "Store a memory record in one project and read another project collection.",
+  "expected": ["Memory records remain project-scoped.", "Other project collections do not expose the record."]
+}

@@ -3,10 +3,16 @@
   "scripts": {
     "app": "node app/server.mjs",
     "test": "node --test test/**/*.test.mjs",
+    "test:browser": "node tools/run-browser-checks.mjs",
     "eval:memo": "node tools/run-memo-evals.mjs"
   },
   "dependencies": {
     "@cortexkit/opencode-magic-context": "0.41.4",
-    "@opencode-ai/plugin": "1.18.30"
+    "@opencode-ai/plugin": "1.18.30",
+    "@opencode-ai/sdk": "1.18.30"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "opencode-ai": "1.18.30"
   }
 }

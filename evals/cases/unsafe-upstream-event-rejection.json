@@ -1,0 +1,6 @@
+{
+  "id": "unsafe-upstream-event-rejection",
+  "category": "upstream-events",
+  "prompt": "Receive a malformed or cross-session upstream event.",
+  "expected": ["The unsafe event is rejected.", "No unsafe event enters the Memo lifecycle stream."]
+}

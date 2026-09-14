@@ -1,0 +1,6 @@
+{
+  "id": "risk-security",
+  "category": "security",
+  "prompt": "Review security controls for injection risk.",
+  "expected": ["The request requires high-risk approval.", "The security category is recorded."]
+}

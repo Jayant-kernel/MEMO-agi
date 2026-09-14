@@ -2,10 +2,16 @@ import { mkdir, readFile, rename, writeFile, appendFile } from "node:fs/promises
 import { basename, join, resolve } from "node:path"
 import { randomUUID } from "node:crypto"
 
-const RUN_STATUSES = new Set(["running", "passed", "failed", "blocked", "cancelled"])
-const EVENT_TYPES = new Set(["note", "route", "delegation", "tool", "check", "failure", "checkpoint"])
+const RUN_STATUSES = new Set(["pending", "running", "passed", "failed", "blocked", "cancelled"])
+const EVENT_TYPES = new Set(["note", "route", "approval", "session", "completion", "delegation", "tool", "check", "failure", "checkpoint"])
 
 const now = () => new Date().toISOString()
+const replaceFile = async (temporary, path) => {
+  for (let attempt = 0; ; attempt += 1) {
+    try { await rename(temporary, path); return }
+    catch (error) { if (!new Set(["EPERM", "EACCES"]).has(error.code) || attempt >= 10) throw error; await new Promise((resolveDelay) => setTimeout(resolveDelay, 10 * (attempt + 1))) }
+  }
+}
 const statePath = (directory) => join(resolve(directory), ".memo")
 const runPath = (directory, runID) => join(statePath(directory), "runs", `${runID}.json`)
 const eventPath = (directory, runID) => join(statePath(directory), "runs", `${runID}.events.jsonl`)
@@ -32,7 +38,7 @@ const assertStringList = (value, label, maxItems) => {
 const writeJSON = async (path, value) => {
   const temporary = `${path}.${randomUUID()}.tmp`
   await writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, "utf8")
-  await rename(temporary, path)
+  await replaceFile(temporary, path)
 }
 
 const readJSON = async (path) => JSON.parse(await readFile(path, "utf8"))
@@ -44,7 +50,7 @@ const ensureState = async (directory) => {
 }
 
 export const createRun = async (directory, input) => {
-  assertText(input.task, "task", 4000)
+  assertText(input.task, "task", 8000)
   assertText(input.route, "route", 100)
   assertStringList(input.models ?? [], "models", 10)
   await ensureState(directory)
@@ -60,8 +66,9 @@ export const createRun = async (directory, input) => {
     route: input.route.trim(),
     models: input.models ?? [],
     task_id: input.task_id ?? null,
-    status: "running",
-    started_at: timestamp,
+    status: input.status ?? "running",
+    created_at: timestamp,
+    started_at: null,
     finished_at: null,
     duration_ms: null,
     token_estimate: { input: null, output: null },
@@ -70,13 +77,26 @@ export const createRun = async (directory, input) => {
     checks: { passed: 0, failed: 0 },
     failure_count: 0,
   }
+  if (!new Set(["pending", "running"]).has(run.status)) throw new Error("A run must begin pending or running.")
+  if (run.status === "running") run.started_at = timestamp
   await writeJSON(runPath(directory, runID), run)
+  return run
+}
+
+export const startRun = async (directory, input) => {
+  assertID(input.run_id, "run_id")
+  const path = runPath(directory, input.run_id)
+  const run = await readJSON(path)
+  if (run.status !== "pending") throw new Error(`Run cannot transition from ${run.status} to running.`)
+  run.status = "running"
+  run.started_at = now()
+  await writeJSON(path, run)
   return run
 }
 
 export const recordRunEvent = async (directory, input) => {
   assertID(input.run_id, "run_id")
-  if (!EVENT_TYPES.has(input.type)) throw new Error("type must be note, route, delegation, tool, check, failure, or checkpoint.")
+  if (!EVENT_TYPES.has(input.type)) throw new Error("type must be a supported Memo run event.")
   assertText(input.summary, "summary", 4000)
   const path = runPath(directory, input.run_id)
   const run = await readJSON(path)
@@ -115,10 +135,10 @@ export const finishRun = async (directory, input) => {
   if (!RUN_STATUSES.has(input.status) || input.status === "running") throw new Error("status must be passed, failed, blocked, or cancelled.")
   const path = runPath(directory, input.run_id)
   const run = await readJSON(path)
-  if (run.status !== "running") throw new Error(`Run is already ${run.status}.`)
+  if (!new Set(["pending", "running"]).has(run.status)) throw new Error(`Run is already ${run.status}.`)
   run.status = input.status
   run.finished_at = now()
-  run.duration_ms = Date.parse(run.finished_at) - Date.parse(run.started_at)
+  run.duration_ms = run.started_at ? Date.parse(run.finished_at) - Date.parse(run.started_at) : 0
   run.outcome = input.outcome?.trim() || null
   await writeJSON(path, run)
   return run

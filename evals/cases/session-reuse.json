@@ -1,0 +1,6 @@
+{
+  "id": "session-reuse",
+  "category": "session",
+  "prompt": "Send two sequential ordinary requests in one chat.",
+  "expected": ["The second request reuses the saved session.", "Each user message receives a distinct upstream identifier."]
+}

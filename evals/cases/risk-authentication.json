@@ -1,0 +1,6 @@
+{
+  "id": "risk-authentication",
+  "category": "authentication",
+  "prompt": "Review the authentication login flow.",
+  "expected": ["The request requires high-risk approval.", "The authentication category is recorded."]
+}

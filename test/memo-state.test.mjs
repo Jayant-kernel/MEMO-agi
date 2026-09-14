@@ -3,7 +3,7 @@ import { mkdtemp, readFile, rm } from "node:fs/promises"
 import test from "node:test"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
-import { addCheckpoint, createManifest, createRun, finishRun, memoPaths, recordRunEvent } from "../.opencode/lib/memo-state.mjs"
+import { addCheckpoint, createManifest, createRun, finishRun, memoPaths, recordRunEvent, startRun } from "../.opencode/lib/memo-state.mjs"
 
 const withProject = async (callback) => {
   const directory = await mkdtemp(join(tmpdir(), "memo-state-"))
@@ -34,4 +34,14 @@ test("creates a manifest with resumable checkpoints", async () => withProject(as
 test("rejects invalid run states", async () => withProject(async (directory) => {
   await createRun(directory, { run_id: "run-invalid", task: "Verify validation", route: "local", models: [] })
   await assert.rejects(() => finishRun(directory, { run_id: "run-invalid", status: "running" }))
+}))
+
+test("supports a truthful pending to running ledger transition", async () => withProject(async (directory) => {
+  const pending = await createRun(directory, { run_id: "run-pending", task: "x".repeat(8000), route: "local", models: [], status: "pending" })
+  assert.equal(pending.status, "pending")
+  assert.equal(pending.started_at, null)
+  await assert.rejects(() => recordRunEvent(directory, { run_id: pending.run_id, type: "note", summary: "too early" }), /pending/)
+  const running = await startRun(directory, { run_id: pending.run_id })
+  assert.equal(running.status, "running")
+  assert.ok(running.started_at)
 }))

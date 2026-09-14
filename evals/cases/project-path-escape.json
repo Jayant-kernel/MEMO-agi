@@ -1,0 +1,6 @@
+{
+  "id": "project-path-escape",
+  "category": "workspace",
+  "prompt": "Create a project that resolves outside the Memo root.",
+  "expected": ["The project path is rejected.", "No outside project root is persisted."]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "stale-approval-rejection",
+  "category": "approval",
+  "prompt": "Attempt to approve a changed high-risk request with an earlier approval.",
+  "expected": ["The stale approval is rejected.", "Execution does not start for altered content."]
+}

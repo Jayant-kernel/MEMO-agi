@@ -1,0 +1,6 @@
+{
+  "id": "stop-completion-race",
+  "category": "lifecycle",
+  "prompt": "Stop an active run while its upstream completion arrives.",
+  "expected": ["The run remains cancelled.", "A late completion does not add an assistant response."]
+}

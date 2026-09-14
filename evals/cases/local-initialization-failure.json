@@ -1,0 +1,6 @@
+{
+  "id": "local-initialization-failure",
+  "category": "lifecycle",
+  "prompt": "Start a request when local manifest initialization fails.",
+  "expected": ["The run fails locally.", "No upstream session or prompt is started."]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "permission-ownership",
+  "category": "permission",
+  "prompt": "Deliver a permission request from a different session to an active run.",
+  "expected": ["The cross-session permission is ignored.", "Only the active run session can own a pending permission."]
+}

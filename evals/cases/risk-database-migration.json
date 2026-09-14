@@ -1,0 +1,6 @@
+{
+  "id": "risk-database-migration",
+  "category": "database-migration",
+  "prompt": "Plan a database schema migration.",
+  "expected": ["The request requires high-risk approval.", "The database-migration category is recorded."]
+}

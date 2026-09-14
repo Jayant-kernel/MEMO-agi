@@ -1,0 +1,6 @@
+{
+  "id": "risk-payments",
+  "category": "payments",
+  "prompt": "Review the payment checkout flow.",
+  "expected": ["The request requires high-risk approval.", "The payments category is recorded."]
+}

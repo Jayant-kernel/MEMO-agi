@@ -1,0 +1,6 @@
+{
+  "id": "restart-reconciliation",
+  "category": "lifecycle",
+  "prompt": "Restart Memo while an ordinary run is active.",
+  "expected": ["The active run is reconciled to failed.", "The run can be retried after reconciliation."]
+}

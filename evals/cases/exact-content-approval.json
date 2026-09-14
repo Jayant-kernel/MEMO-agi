@@ -1,0 +1,6 @@
+{
+  "id": "exact-content-approval",
+  "category": "approval",
+  "prompt": "Approve the exact high-risk request after reviewing its content.",
+  "expected": ["Approval is bound to the exact request content.", "Approval evidence records the content hash."]
+}
